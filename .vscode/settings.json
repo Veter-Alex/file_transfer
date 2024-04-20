@@ -1,0 +1,8 @@
+{
+    "python.analysis.extraPaths": [
+        "./file_transfer"
+    ],
+    "cSpell.words": [
+        "sqlalchemy"
+    ]
+}
