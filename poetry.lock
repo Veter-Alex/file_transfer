@@ -259,6 +259,20 @@ uvicorn = {version = ">=0.12.0", extras = ["standard"], optional = true, markers
 all = ["email-validator (>=2.0.0)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.7)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
 
 [[package]]
+name = "fastapi-offline"
+version = "1.7.1"
+description = "FastAPI without reliance on CDNs for docs"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+fastapi = ">=0.99.0"
+
+[package.extras]
+test = ["pytest", "requests", "starlette"]
+
+[[package]]
 name = "fastapi-users"
 version = "13.0.0"
 description = "Ready-to-use and customizable users management for FastAPI"
@@ -758,7 +772,7 @@ python-versions = ">=3.8"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "eb05f0035ca2b20c4d97bb019152787dc3f101b24ac51977d34f92db229ded86"
+content-hash = "8fa433af641587525583131f577ef3255b8f3f7f1c8533f7de5f1948ad2284bd"
 
 [metadata.files]
 alembic = []
@@ -780,6 +794,7 @@ dnspython = []
 email-validator = []
 exceptiongroup = []
 fastapi = []
+fastapi-offline = []
 fastapi-users = []
 fastapi-users-db-sqlalchemy = []
 greenlet = []

@@ -3,16 +3,16 @@ from logging.config import fileConfig
 from os.path import abspath, dirname
 
 from alembic import context
-from file_transfer.config import settings
-from file_transfer.database import Base
-from file_transfer.tasks.model import (
+from sqlalchemy import engine_from_config, pool
+from src.config import settings
+from src.database import Base
+from src.tasks.model import (
     File_extension_to_copy,
     From_dir,
     Last_operation,
     Tasks,
     To_dir,
 )
-from sqlalchemy import engine_from_config, pool
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
