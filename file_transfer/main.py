@@ -1,14 +1,20 @@
 import datetime
 from pathlib import Path
+from typing import Any, Optional
 
-from fastapi import FastAPI
+import uvicorn
+from database import tasks
+from fastapi import Depends, FastAPI, Query
 from pydantic import BaseModel, Field
+from tasks.router import router as tasks_router
 
 app = FastAPI(
     title="File Transfer",
     description="File Transfer API",
     version="0.1.0",
 )
+
+app.include_router(tasks_router)
 
 
 class Last_operation(BaseModel):
@@ -91,10 +97,11 @@ class To_dir(BaseModel):
     create_dir_extension: bool = Field(default=False)
 
 
-class Tasks(BaseModel):
+class Task(BaseModel):
     """
     A data model representing a task with an id, title, source directories,
-        destination directories, task enable status, check interval, and optional notes.
+        destination directories, task enable status, check interval,
+        and optional notes.
 
     Args:
         id (int): The unique identifier for the task.
@@ -109,7 +116,7 @@ class Tasks(BaseModel):
         notes (str | None): Additional notes for the task, if any.
 
     Returns:
-        Tasks: An instance of the Tasks data model representing a task.
+        Task: An instance of the Task data model representing a task.
     """
 
     id: int
@@ -122,159 +129,65 @@ class Tasks(BaseModel):
     notes: str | None = None
 
 
-tasks = [
-    {
-        "id": 1,
-        "title": "Task 1",
-        "from_dirs": [
-            {
-                "path_from_dir": Path("/data"),
-                "file_extensions": [
-                    {
-                        "extension": "txt",
-                        "min_size_file": 10,
-                        "max_size_file": 104857600,
-                    }
-                ],
-                "del_after_copy": False,
-            }
-        ],
-        "to_dirs": [
-            {
-                "path_to_dir": Path("/data"),
-                "create_dir_day": False,
-                "create_dir_hour": False,
-                "create_dir_extension": False,
-            }
-        ],
-        "task_enable": True,
-        "check_interval": 60,
-        "last_operation": None,
-        "notes": None,
-    },
-    {
-        "id": 2,
-        "title": "Task 2",
-        "from_dirs": [
-            {
-                "path_from_dir": Path("/data"),
-                "file_extensions": [
-                    {
-                        "extension": "txt",
-                        "min_size_file": 10,
-                        "max_size_file": 104857600,
-                    }
-                ],
-                "del_after_copy": False,
-            }
-        ],
-        "to_dirs": [
-            {
-                "path_to_dir": Path("/data"),
-                "create_dir_day": False,
-                "create_dir_hour": False,
-                "create_dir_extension": False,
-            }
-        ],
-        "task_enable": True,
-        "check_interval": 60,
-        "last_operation": None,
-        "notes": None,
-    },
-    {
-        "id": 3,
-        "title": "Task 3",
-        "from_dirs": [
-            {
-                "path_from_dir": Path("/data"),
-                "file_extensions": [
-                    {
-                        "extension": "txt",
-                        "min_size_file": 10,
-                        "max_size_file": 104857600,
-                    }
-                ],
-                "del_after_copy": False,
-            }
-        ],
-        "to_dirs": [
-            {
-                "path_to_dir": Path("/data"),
-                "create_dir_day": False,
-                "create_dir_hour": False,
-                "create_dir_extension": False,
-            }
-        ],
-        "task_enable": True,
-        "check_interval": 60,
-        "last_operation": None,
-        "notes": None,
-    },
-    {
-        "id": 4,
-        "title": "Task 4",
-        "from_dirs": [
-            {
-                "path_from_dir": Path("/data"),
-                "file_extensions": [
-                    {
-                        "extension": "txt",
-                        "min_size_file": 10,
-                        "max_size_file": 104857600,
-                    }
-                ],
-                "del_after_copy": False,
-            }
-        ],
-        "to_dirs": [
-            {
-                "path_to_dir": Path("/data"),
-                "create_dir_day": False,
-                "create_dir_hour": False,
-                "create_dir_extension": False,
-            }
-        ],
-        "task_enable": True,
-        "check_interval": 60,
-        "last_operation": None,
-        "notes": None,
-    },
-]
+class Get_Tasks:
+    def __init__(
+        self,
+        limit: int = Query(10, ge=0),
+        offset: int = Query(0, ge=0),
+        task_enable: Optional[bool] = False,
+    ):
+        self.limit = limit
+        self.offset = offset
+        self.task_enable = task_enable
 
 
-@app.get("/tasks", response_model=list[Tasks])
-async def get_tasks(limit: int = 5, offset: int = 0) -> list[Tasks]:
-    return tasks[offset:][:limit]
+@app.get("/tasks")
+async def get_tasks(get_tasks: Get_Tasks = Depends()) -> list[Task]:
+    if get_tasks.task_enable is False:
+        return tasks[get_tasks.offset : get_tasks.offset + get_tasks.limit]
+    else:
+        return [
+            task
+            for index, task in enumerate(tasks)
+            if task["task_enable"] == get_tasks.task_enable
+            and index >= get_tasks.offset
+            and index < get_tasks.offset + get_tasks.limit
+        ]
 
 
-@app.get("/tasks/{task_id}", response_model=list[Tasks])
-async def get_task(task_id: int) -> list[Tasks]:
-    return [task for task in tasks if task.get("id") == task_id]
+@app.get("/tasks/{task_id}")
+async def get_task(task_id: int) -> Task:
+    return next((task for task in tasks if task["id"] == task_id), None)
 
 
 @app.post("/tasks")
-async def add_tasks(new_tasks: list[Tasks]):
-    tasks.extend(new_tasks)
-    return {"status": "success", "tasks": tasks}
+async def add_task(new_task: Task) -> dict[str, str | Task]:
+    tasks.append(dict(new_task))
+    return {"status": "success", "task": new_task}
 
 
-@app.post("/tasks/{task_id}")
-async def update_task(
-    task_id: int,
-    title: str,
-    from_dirs: str,
-    to_dirs: str,
-    task_enable: bool,
-    check_interval: int,
-):
-    task = [task for task in tasks if task.get("id") == task_id][0]
-    task.update(
-        {
-            "title": title,
-            "from_dirs": from_dirs,
-            "to_dirs": to_dirs,
-            "task_enable": task_enable,
-            "check_interval": check_interval,
-        }
-    )
-    return {"status": "success", "task": task}
+@app.patch("/tasks")
+async def task_update(task_update: Task) -> dict[str, str | Task]:
+    for task in tasks:
+        if task["id"] == task_update.id:
+            task["title"] = task_update.title or task["title"]
+            task["from_dirs"] = task_update.from_dirs or task["from_dirs"]
+            task["to_dirs"] = task_update.to_dirs or task["to_dirs"]
+            task["task_enable"] = (
+                bool(task_update.task_enable)
+                if task_update.task_enable
+                else task["task_enable"]
+            )
+            task["check_interval"] = (
+                task_update.check_interval or task["check_interval"]
+            )
+            task["last_operation"] = (
+                task_update.last_operation or task["last_operation"]
+            )
+            task["notes"] = task_update.notes or task["notes"]
+            break
+    return {"status": "success", "task": task_update}
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

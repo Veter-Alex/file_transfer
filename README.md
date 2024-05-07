@@ -1,15 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -25,21 +14,17 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a>
-    <img src="images/logo.png" alt="trancrib - Logo.png" width="180" height="180">
+    <img src="docs/images/logo.png" alt="trancrib - Logo.png" width="180" height="180">
   </a>
   <br />
   <H3 align="center">
-  Программа для транскрибирования аудиофайлов и перевода <br>
-  на английский и русский языки.
+  Программа для переноса файлов. <br>
   </H3>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -72,14 +57,7 @@
 <!-- ABOUT THE PROJECT -->
 ## О проекте
 
-На GitHub доступно много отличных шаблонов README; однако я не нашел ни одного, который действительно соответствовал бы моим потребностям, поэтому я создал этот улучшенный. Я хочу создать шаблон README настолько потрясающий, что он будет последним, который вам когда-либо понадобится - я думаю, это он.
-
-Вот почему:
-* Ваше время должно быть сосредоточено на создании чего-то удивительного. Проект, который решает проблему и помогает другим
-* Вы не должны выполнять одни и те же задачи снова и снова, например, создавать README с нуля
-* Вы должны внедрять принципы DRY на всю оставшуюся жизнь: улыбайтесь:
-
-Конечно, ни один шаблон не будет обслуживать все проекты, поскольку ваши потребности могут отличаться. Поэтому я добавлю больше в ближайшем будущем. Вы также можете предложить изменения, разветвив это репозиторий и создав запрос на извлечение или открыв проблему. Спасибо всем людям, которые внесли свой вклад в расширение этого шаблона!
+Описание в разработке... 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -87,7 +65,7 @@
 
 ### создано с помощью ...
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+В этом разделе должны быть перечислены все основные фреймворки/библиотеки, используемые для начальной загрузки вашего проекта. Оставьте любые дополнения/плагины для раздела благодарности. Вот несколько примеров.
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
@@ -107,8 +85,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Старт
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Это пример того, как вы можете давать инструкции по настройке вашего проекта локально.
+Чтобы запустить локальную копию, выполните следующие простые действия.
 
 ### Предварительное требование
 
@@ -116,10 +94,6 @@ To get a local copy up and running follow these simple example steps.
 * установить обновления
   ```
   apt update && apt upgrade -y
-  ```
-* установить ffmpeg
-  ```
-  apt-get install ffmpeg
   ```
 * установить poetry
   ```
@@ -132,7 +106,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Установка
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_ Ниже приведен пример того, как вы можете проинструктировать свою аудиторию по установке и настройке вашего приложения. Этот шаблон не основан на каких-либо внешних зависимостях или сервисах._
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
@@ -155,7 +129,7 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Использование
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Используйте это пространство, чтобы показать полезные примеры того, как можно использовать проект. Здесь можно найти дополнительные скриншоты, примеры кода и демонстрации. Вы также можете перейти по ссылкам на другие ресурсы.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -166,13 +140,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [x] Добавить список изменений
+- [x] Добавить ссылки в начало списка
+- [ ] Добавить дополнительные шаблоны с примерами
+- [ ] Добавить документ "компоненты", чтобы можно было легко копировать и вставлять разделы readme
+- [ ] Поддержка нескольких языков
+    - [ ] Китайский
+    - [ ] Испанский
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
@@ -202,7 +176,7 @@ GitHub - [https://github.com/your_username/repo_name](https://github.com/your_us
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Используйте это поле, чтобы составить список ресурсов, которые вы считаете полезными и которым хотели бы отдать должное. Я включил несколько своих любимых, чтобы начать работу!
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
