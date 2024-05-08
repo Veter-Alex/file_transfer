@@ -1,18 +1,6 @@
 from fastapi import APIRouter
-from tasks.dao import (
-    FileExtensiontoCopyDAO,
-    FromDirDAO,
-    LastOperationDAO,
-    TaskDAO,
-    ToDirDAO,
-)
-from tasks.schemas import (
-    SFile_extension_to_copy,
-    SFrom_Dir,
-    SLast_Operation,
-    STask,
-    STo_Dir,
-)
+from tasks.dao import TaskDAO
+from tasks.schemas import STask
 
 router = APIRouter(
     prefix="/tasks",
@@ -34,7 +22,7 @@ async def get_all() -> list[STask]:
 
 
 @router.get("/{task_id}")
-async def get_by_id(task_id : int) -> STask:
+async def get_by_id(task_id: int) -> STask:
     """
     Получает задачу с заданным id
 
@@ -47,57 +35,28 @@ async def get_by_id(task_id : int) -> STask:
     return await TaskDAO.get_one_or_none(id=task_id)
 
 
-@router.get("/{task_id}/from_dirs")
-async def get_task_from_dirs(task_id: int) -> list[SFrom_Dir]:
+@router.post("")
+async def add_task(
+    title: str,
+    task_enable: bool,
+    check_interval: int,
+    notes: str | None = None,
+) -> STask:
     """
-    Получает список исходных директории для задачи с заданным id
+    Создает задачу
 
     Args:
-        task_id (int): id задачи
+        title (str): название задачи
+        task_enable (bool): состояние задачи
+        check_interval (int): интервал проверки задачи
+        notes (str | None): заметки
 
     Returns:
-        list[SFrom_Dir]: список исходных директорий для задачи с заданным id
+        STask: созданная задача
     """
-    return await FromDirDAO.get_all(task_id=task_id)
-
-
-@router.get("/{task_id}/to_dirs")
-async def get_task_to_dirs(task_id: int) -> list[STo_Dir]:
-    """
-    Получает список директории назначения для задачи с заданным id
-
-    Args:
-        task_id (int): id задачи
-
-    Returns:
-        list[SFrom_Dir]: список директорий назначения для задачи с заданным id
-    """
-    return await ToDirDAO.get_all(task_id=task_id)
-
-
-@router.get("/{from_dir_id}/file_extension_to_copy")
-async def get_file_extension_to_copy(from_dir_id: int) -> list[SFile_extension_to_copy]:
-    """
-    Получает список расширений для задачи с исходной директории с заданным id
-
-    Args:
-        from_dir_id (int): id исходной директории
-
-    Returns:
-        list[SFile_extension_to_copy]: список расширений для задачи с исходной директории с заданным id
-    """
-    return await FileExtensiontoCopyDAO.get_all(from_dir_id=from_dir_id)
-
-
-@router.get("/{task_id}/last_operation")
-async def get_last_operations(task_id: int) -> list[SLast_Operation] | None:
-    """
-    Получает последнюю операцию для задачи с заданным id
-
-    Args:
-        task_id (int): id задачи
-
-    Returns:
-        list[SLast_Operation]: последнюю операцию для задачи с заданным id
-    """
-    return await LastOperationDAO.get_one_or_none(task_id=task_id)
+    return await TaskDAO.add(
+        title=title,
+        task_enable=task_enable,
+        check_interval=check_interval,
+        notes=notes,
+    )
