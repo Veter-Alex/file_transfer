@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from tasks.last_operations.dao import LastOperationDAO
-from tasks.last_operations.schemas import SLast_Operation
+from tasks.last_operations.dao import LastOperationsDAO
+from tasks.last_operations.schemas import SLast_Operations
 
 router = APIRouter(
     prefix="/tasks",
@@ -9,7 +9,7 @@ router = APIRouter(
 
 
 @router.get("/{task_id}/last_operation")
-async def get_last_operations(task_id: int) -> list[SLast_Operation] | None:
+async def get_last_operations(task_id: int) -> list[SLast_Operations] | None:
     """
     Получает последнюю операцию для задачи с заданным id
 
@@ -19,4 +19,4 @@ async def get_last_operations(task_id: int) -> list[SLast_Operation] | None:
     Returns:
         list[SLast_Operation]: последнюю операцию для задачи с заданным id
     """
-    return await LastOperationDAO.get_one_or_none(task_id=task_id)
+    return await LastOperationsDAO.get_one_or_none(task_id=task_id)

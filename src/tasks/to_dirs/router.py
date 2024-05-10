@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from tasks.to_dirs.dao import ToDirDAO
-from tasks.to_dirs.schemas import STo_Dir
+from tasks.to_dirs.dao import ToDirsDAO
+from tasks.to_dirs.schemas import STo_Dirs
 
 router = APIRouter(
     prefix="/tasks",
@@ -9,7 +9,7 @@ router = APIRouter(
 
 
 @router.get("/{task_id}/to_dirs")
-async def get_task_to_dirs(task_id: int) -> list[STo_Dir]:
+async def get_task_to_dirs(task_id: int) -> list[STo_Dirs]:
     """
     Получает список директории назначения для задачи с заданным id
 
@@ -19,4 +19,4 @@ async def get_task_to_dirs(task_id: int) -> list[STo_Dir]:
     Returns:
         list[SFrom_Dir]: список директорий назначения для задачи с заданным id
     """
-    return await ToDirDAO.get_all(task_id=task_id)
+    return await ToDirsDAO.get_all(task_id=task_id)

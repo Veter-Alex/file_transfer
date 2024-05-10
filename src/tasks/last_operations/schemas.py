@@ -3,7 +3,7 @@ import datetime
 from pydantic import BaseModel, Field
 
 
-class SLast_Operation(BaseModel):
+class SLast_Operations(BaseModel):
     """
     A data model representing the last operation performed on a task.
 

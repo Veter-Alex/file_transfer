@@ -4,17 +4,16 @@ from os.path import abspath, dirname
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
-from src.config import settings
-from src.database import Base
-from src.tasks.model import (
-    File_extension_to_copy,
-    From_dir,
-    Last_operation,
-    Tasks,
-    To_dir,
-)
 
-sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
+sys.path.insert(0, dirname(dirname(abspath(__file__))))
+
+from config import settings
+from database import Base
+from tasks.copy_extensions.model import Copy_Extensions
+from tasks.from_dirs.model import From_dirs
+from tasks.last_operations.model import Last_operations
+from tasks.model import Tasks
+from tasks.to_dirs.model import To_dirs
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

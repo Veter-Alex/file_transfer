@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from tasks.dao import TaskDAO
-from tasks.schemas import STask
+from tasks.dao import TasksDAO
+from tasks.schemas import STasks
 
 router = APIRouter(
     prefix="/tasks",
@@ -9,7 +9,7 @@ router = APIRouter(
 
 
 @router.get("")
-async def get_all() -> list[STask]:
+async def get_all() -> list[STasks]:
     """
     Получает список задач
     Args:
@@ -18,11 +18,15 @@ async def get_all() -> list[STask]:
     Returns:
         list[STask]: список задач
     """
-    return await TaskDAO.get_all()
+    result = await TasksDAO.get_all()
+    if result == []:
+        pass
+    else:
+        return result
 
 
 @router.get("/{task_id}")
-async def get_by_id(task_id: int) -> STask:
+async def get_by_id(task_id: int) -> STasks:
     """
     Получает задачу с заданным id
 
@@ -32,7 +36,7 @@ async def get_by_id(task_id: int) -> STask:
     Returns:
         STask: задача с заданным id
     """
-    return await TaskDAO.get_one_or_none(id=task_id)
+    return await TasksDAO.get_one_or_none(id=task_id)
 
 
 @router.post("")
@@ -41,7 +45,7 @@ async def add_task(
     task_enable: bool,
     check_interval: int,
     notes: str | None = None,
-) -> STask:
+):
     """
     Создает задачу
 
@@ -54,9 +58,10 @@ async def add_task(
     Returns:
         STask: созданная задача
     """
-    return await TaskDAO.add(
+    result = await TasksDAO.add_task(
         title=title,
         task_enable=task_enable,
         check_interval=check_interval,
         notes=notes,
     )
+    return result

@@ -3,7 +3,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 
-class STo_Dir(BaseModel):
+class STo_Dirs(BaseModel):
     """
     A data model representing a destination directory with its path.
 
