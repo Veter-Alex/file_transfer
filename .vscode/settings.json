@@ -4,7 +4,10 @@
     ],
     "cSpell.words": [
         "asyncpg",
+        "Cхема",
         "fastapi",
+        "intpk",
+        "ondelte",
         "poolclass",
         "pydantic",
         "sessionmaker",

@@ -1,11 +1,22 @@
-from database import Base
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
+import enum
+from database import BaseModel, created_at, intpk, str_50
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
-class Last_operations(Base):
+class Operations_List(enum.Enum):
+    copy = "copy"
+    move = "move"
+    backup = "backup"
+    delete = "delete"
+
+class Last_OperationsORM(BaseModel):
     __tablename__ = "last_operations"
-    id = Column(Integer, primary_key=True)
-    tasks_id = Column(Integer, ForeignKey("tasks.id"), nullable=False)
-    operation = Column(String)
-    timestamp = Column(DateTime)
-    status_ok = Column(Boolean)
+
+    id: Mapped[intpk]
+    tasks_id: Mapped[int] = mapped_column(
+        ForeignKey("tasks.id", ondelete="CASCADE")
+    )
+    operation: Mapped[Operations_List]
+    timestamp: Mapped[created_at]
+    status_ok: Mapped[bool]

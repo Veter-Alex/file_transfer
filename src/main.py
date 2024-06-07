@@ -2,12 +2,11 @@ import uvicorn
 
 # from fastapi import FastAPI
 from fastapi_offline import FastAPIOffline
+from tasks.copy_extensions.router import router as copy_operations_router
 from tasks.from_dirs.router import router as from_dirs_router
 from tasks.last_operations.router import router as last_operations_router
-
 from tasks.router import router as tasks_router
 from tasks.to_dirs.router import router as to_dirs_router
-from tasks.copy_extensions.router import router as copy_operations_router
 
 # app = FastAPI()
 app = FastAPIOffline()

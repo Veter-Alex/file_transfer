@@ -1,6 +1,6 @@
 from dao.base import BaseDAO
-from tasks.copy_extensions.model import Copy_Extensions
+from tasks.copy_extensions.model import Copy_ExtensionsORM
 
 
 class CopyExtensionsDAO(BaseDAO):
-    model = Copy_Extensions
+    model = Copy_ExtensionsORM

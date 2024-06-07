@@ -21,8 +21,12 @@ class SFrom_Dirs(BaseModel):
     """
 
     id: int
-    path_from_dir: Path
-    del_after_copy: bool = Field(default=False)
+    tasks_id: int
+    path_from_dir: str
+    del_after_copy: bool
+    del_not_copy_files: bool
+    backup_not_copy_files: bool
+    path_backup_dir_not_copy_files: str | None
 
     class Config:
         orm_mode = True

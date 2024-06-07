@@ -1,6 +1,6 @@
 from dao.base import BaseDAO
-from tasks.to_dirs.model import To_dirs
+from tasks.to_dirs.model import To_DirsORM
 
 
 class ToDirsDAO(BaseDAO):
-    model = To_dirs
+    model = To_DirsORM

@@ -8,12 +8,12 @@ from sqlalchemy import engine_from_config, pool
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
 from config import settings
-from database import Base
-from tasks.copy_extensions.model import Copy_Extensions
-from tasks.from_dirs.model import From_dirs
-from tasks.last_operations.model import Last_operations
-from tasks.model import Tasks
-from tasks.to_dirs.model import To_dirs
+from database import BaseModel
+from tasks.copy_extensions.model import Copy_ExtensionsORM
+from tasks.from_dirs.model import From_DirsORM
+from tasks.last_operations.model import Last_OperationsORM
+from tasks.model import TasksORM
+from tasks.to_dirs.model import To_DirsORM
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -32,7 +32,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = Base.metadata
+target_metadata = BaseModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

@@ -16,10 +16,12 @@ class STo_Dirs(BaseModel):
     """
 
     id: int
-    path_to_dir: Path
-    create_dir_day: bool = Field(default=False)
-    create_dir_hour: bool = Field(default=False)
-    create_dir_extension: bool = Field(default=False)
+    from_dirs_id: int
+    path_to_dir: str
+    is_backup_dir_not_copy_files: bool
+    create_dir_day: bool
+    create_dir_hour: bool
+    create_dir_extension: bool
 
     class Config:
         orm_mode = True

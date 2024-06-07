@@ -1,4 +1,5 @@
 import datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -17,9 +18,10 @@ class SLast_Operations(BaseModel):
     """
 
     id: int
-    operation: str = Field(default="")
-    timestamp: datetime.datetime
-    status_ok: bool = Field(default=True)
+    tasks_id: int
+    operation: Literal["backup", "copy", "move", "delete"]
+    timestamp: datetime.datetime = Field(default_factory=datetime.datetime.now)
+    status_ok: bool
 
     class Config:
         orm_mode = True
